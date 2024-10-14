@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { navSections } from './navSections';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function NavBar() {
 
     //state to track the active link and scroll state
     const [activeLink, setActiveLink] = useState("hero");
     const [isScrolled, setIsScrolled] = useState(false);
+    const [navSections, setNavSections] = useState([]);
 
     //function to smoothly scroll to a section by its Id
 
@@ -37,21 +38,16 @@ function NavBar() {
         }
     }
     useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 300) {
-                setIsScrolled(true);
-            }
-            else {
-                setIsScrolled(false);
-            }
-            determineActiveSection();
-        };
-        window.addEventListener("scroll", handleScroll);
-        //remove the scroll event listner when the component unmounts
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        }
+        axios.get("https://fakestoreapi.in/api/products/category")
+            .then(response => {
+                setNavSections(response.data.categories);
+                console.log(response.data.categories)
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }, []);
+
 
     // code for responsive design that shows and hides left side navbar 
 
@@ -69,24 +65,31 @@ function NavBar() {
             </i>
             <div className={showHide}>
                 <div className='container'>
-                    <div className='searchBar'>                       
-                            <h1>vcxcxv</h1>
-                        
+                    <div className="box">
+                        <input type="text" name="" />
+                        <i className="bi bi-search"></i>
                     </div>
-                    <div className='navmenu'>                        
+                    <div className='navmenu'>
                         <div>
                             <nav>
                                 <ul>
-                                    {navSections.map((section, i) => (
+                                    {/* {navSections.map((section, i) => (
                                         <li key={i} onClick={() => scrollToSection(section.secName)}>
-                                            <Link to="/" className={activeLink === section.secName ? "active" : ""}>{section.secName}</Link>
+                                            <Link to="/" className={activeLink === section.secName ? "active" : ""}>{section}</Link>
                                         </li>
-                                    ))}
+                                    ))} */}
+                                    
+                                    <li><Link to="/tv">tv</Link></li>
+                                    <li><Link to="/audio">audio</Link></li>
+                                    <li><Link to="/laptop">laptop</Link></li>
+                                    <li><Link to="/mobile">mobile</Link></li>
+                                    <li><Link to="/gaming">gaming</Link></li>
+                                    <li><Link to="/appliances">appliances</Link></li>
                                 </ul>
                             </nav>
                         </div>
                         <div>
-                            <i class="bi bi-cart"></i>
+                            <i className="bi bi-cart"></i>
                         </div>
                     </div>
                 </div>
