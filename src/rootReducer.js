@@ -1,13 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import TwoReducer from './slice/TwoSlice';
-import FiveReducer from './slice/FiveSlice';
-import SixReducer from './slice/SixSlice';
+import AllDataReducer from './component/sliceComponent/AllDataSlice';
+
 
 
 const rootReducer = combineReducers({
-	two: TwoReducer,
-	five: FiveReducer,
-	six: SixReducer
+	allData: AllDataReducer	
 })
 
 export default rootReducer;
