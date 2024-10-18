@@ -61,5 +61,8 @@
     height: 100px;
     width: 100px;
   }
+  ul{
+    display: flex;
+  }
 
 

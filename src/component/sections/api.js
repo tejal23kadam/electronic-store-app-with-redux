@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const fetchUsers = async () => {
+export const fetchData = async () => {
     try {
         const response = 
         	await axios.get('https://fakestoreapi.in/api/products?limit=150');

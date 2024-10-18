@@ -78,7 +78,7 @@ function NavBar() {
                                             <Link to="/" className={activeLink === section.secName ? "active" : ""}>{section}</Link>
                                         </li>
                                     ))} */}
-                                    
+                                    <li><Link to="/all">all</Link></li>  
                                     <li><Link to="/tv">tv</Link></li>
                                     <li><Link to="/audio">audio</Link></li>
                                     <li><Link to="/laptop">laptop</Link></li>

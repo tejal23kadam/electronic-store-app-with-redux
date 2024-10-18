@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchUsersAsync, setCurrentPage } from '../sliceComponent/AllDataSlice';
+import React, {useState } from 'react';
+import { useSelector } from 'react-redux';
 import Pagination from '../../component/paginationComponent/Pagination';
 
 function TvCategory() {
   const [currentPage, setCurrentPage] = useState(1); 
   const postsPerPage = 10;
 
-  const users = useSelector((state) => state.allData.users.products);
+  const data = useSelector((state) => state.allData.data.products);
   const loading = useSelector((state) => state.allData.loading);
-  const error = useSelector((state) => state.allData.error);
-  const dispatch = useDispatch();
+  const error = useSelector((state) => state.allData.error);  
 
-   useEffect(() => {    
-    dispatch(fetchUsersAsync());
-  }, [currentPage, dispatch]);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -25,19 +20,19 @@ function TvCategory() {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
-  if (!users || users.length === 0) return <h1>No data available</h1>;
+  if (!data || data.length === 0) return <h1>No data available</h1>;
 
   return (
     <div className='container'>
       <h1>User List</h1>
       <ul>
-        {(users) ?
+        {(data) ?
           (
-            (users.filter(user => user.category === "tv").slice(indexOfFirstPost, indexOfLastPost).map((user) => (  
-              <li key={user.id}>
-                <img className='AllDataImage' src={user.image} />
-                <h4>original price {user.price} </h4>
-                <p> discount {user.discount} %</p>
+            (data.filter(data => data.category === "tv").slice(indexOfFirstPost, indexOfLastPost).map((data) => (  
+              <li key={data.id}>
+                <img className='AllDataImage' src={data.image} alt="noImage"/>
+                <h4>original price {data.price} </h4>
+                <p> discount {data.discount} %</p>
               </li>
             )))
           ) :
@@ -45,7 +40,7 @@ function TvCategory() {
         }
       </ul>
       <Pagination
-        length={users.length}
+        length={data.length}
         postsPerPage={postsPerPage}
         currentPage={currentPage}
         handlePagination={handlePagination}
