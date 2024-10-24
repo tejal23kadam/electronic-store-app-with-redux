@@ -4,13 +4,8 @@ const CartSlice = createSlice({
     name: "cart",
     initialState: [],
     reducers: {
-      addToCart: (state, action) => {
-        const newTodo = {
-          id: Date.now(),
-          text: action.payload,
-          completed: false,
-        };
-        state.push(newTodo);
+      addToCart: (state, action) => {      
+        state.push(action.payload);       
       },    
       updateToCart: (state, action) => {
         const index = state.findIndex((todo) => todo.id === action.payload.id);
@@ -18,8 +13,8 @@ const CartSlice = createSlice({
         updatedState[index].text = action.payload.text;
       },
      
-      deleteToCart: (state, action) => {
-        const index = state.findIndex((todo) => todo.id === action.payload);
+      deleteFromCart: (state, action) => {
+        const index = state.findIndex((cart) => cart.id === action.payload);
         if (index !== -1) {
           state.splice(index, 1);
         }
@@ -29,5 +24,5 @@ const CartSlice = createSlice({
       },
     },
   });
-export const {addToCart, updateToCart, deleteToCart, deleteAllCart} = CartSlice.actions;
+export const {addToCart, updateToCart, deleteFromCart, deleteAllCart} = CartSlice.actions;
 export default CartSlice.reducer;

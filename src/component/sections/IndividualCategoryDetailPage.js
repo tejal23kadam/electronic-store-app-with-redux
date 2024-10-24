@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchDatasAsync } from '../sliceComponent/AllDataSlice';
-import Pagination from '../../component/paginationComponent/Pagination';
+import Pagination from '../paginationComponent/Pagination';
 import SingleProductDetailPage from '../singleProductDetailComponent/SingleProductDetailPage';
 import { addToCart } from '../sliceComponent/CartSlice';
 
-function AllCategory() {
+function IndividualCategoryDetailPage(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [open, setOpen] = useState(false);
   const [currentProductId, setCurrentProductId] = useState(1);
@@ -14,15 +13,8 @@ function AllCategory() {
   const data = useSelector((state) => state.allData.data.products);
   const loading = useSelector((state) => state.allData.loading);
   const error = useSelector((state) => state.allData.error);
-  const cart = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    // Fetch data whenever the current page changes
-    dispatch(fetchDatasAsync());
-  }, [currentPage, dispatch]);
-
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
@@ -48,13 +40,16 @@ function AllCategory() {
       <div className='pro-container'>
         {(data) ?
           (
-            (data.slice(indexOfFirstPost, indexOfLastPost).map((data) => (
-              <div className="pro" key={data.id} >
-                <div className="des">
+            (data.filter(data => data.category === props.category).slice(indexOfFirstPost, indexOfLastPost).map((data) => (
+              <div class="pro" >
+                <div class="des">
                   <img src={data.image} alt="noImage" />
                   <p className="overme">{data.title} </p>
-                  <h6>original price {data.price} </h6>
-                  <p> discount {data.discount} %</p>
+                  <div style={{display: "flex", justifyContent:"space-evenly"}}>
+                    <h6><s>$ {data.price}</s> </h6>
+                    <p>{data.price * data.price}</p>
+                    <p>{data.discount} % off</p>
+                  </div>
                   <button type="button" onClick={() => handleOpen(data.id)}>Click Me to Open Modal </button>
                 </div>
                 <button type="button" onClick={() => { dispatch(addToCart(data)) }}><i className="fal bi bi-cart cart" ></i></button>
@@ -72,7 +67,8 @@ function AllCategory() {
         handlePagination={handlePagination}
       />
     </div >
-  );
+
+  )
 }
 
-export default AllCategory;
+export default IndividualCategoryDetailPage

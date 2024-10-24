@@ -10,6 +10,7 @@ import MobileCategory from './component/sections/MobileCategory';
 import GamingCategory from './component/sections/GamingCategory';
 import AppliancesCategory from './component/sections/AppliancesCategory';
 import AllCategory from './component/sections/AllCategory';
+import ShoppingCartData from './component/sections/ShoppingCartData';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/mobile" element={<MobileCategory />} />
         <Route path="/gaming" element={<GamingCategory />} />
         <Route path="/appliances" element={<AppliancesCategory />} />
+        <Route path="/cartData" element={<ShoppingCartData/>} />
       </Routes>
     </div>
   );

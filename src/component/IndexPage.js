@@ -6,7 +6,7 @@ function Index() {
     return (
         <>
             <NavBar />
-            {/* <Slider />            */}
+            {/* <Slider />              */}
         </>
     )
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function NavBar() {
 
@@ -10,6 +11,7 @@ function NavBar() {
     const [navSections, setNavSections] = useState([]);
 
     //function to smoothly scroll to a section by its Id
+    const cart = useSelector((state) => state.cart);
 
     const scrollToSection = (sectionId) => {
         const element = document.getElementById(sectionId);
@@ -41,7 +43,7 @@ function NavBar() {
         axios.get("https://fakestoreapi.in/api/products/category")
             .then(response => {
                 setNavSections(response.data.categories);
-                console.log(response.data.categories)
+               // console.log(response.data.categories)
             })
             .catch(error => {
                 console.error(error);
@@ -78,7 +80,7 @@ function NavBar() {
                                             <Link to="/" className={activeLink === section.secName ? "active" : ""}>{section}</Link>
                                         </li>
                                     ))} */}
-                                    <li><Link to="/all">all</Link></li>  
+                                    <li><Link to="/all">all</Link></li>
                                     <li><Link to="/tv">tv</Link></li>
                                     <li><Link to="/audio">audio</Link></li>
                                     <li><Link to="/laptop">laptop</Link></li>
@@ -88,8 +90,9 @@ function NavBar() {
                                 </ul>
                             </nav>
                         </div>
-                        <div>
-                            <i className="bi bi-cart"></i>
+                        <div>                           
+                            <Link to="/cartData"><i className="bi bi-cart"></i></Link> 
+                            <p>{cart.length}</p>                            
                         </div>
                     </div>
                 </div>
