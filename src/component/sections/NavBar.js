@@ -90,9 +90,9 @@ function NavBar() {
                                 </ul>
                             </nav>
                         </div>
-                        <div>                           
+                        <div className='cartCount'>                           
                             <Link to="/cartData"><i className="bi bi-cart"></i></Link> 
-                            <p>{cart.length}</p>                            
+                            <span class="quantity">{cart.length}</span>                         
                         </div>
                     </div>
                 </div>

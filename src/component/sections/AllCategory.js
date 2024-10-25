@@ -9,7 +9,7 @@ function AllCategory() {
   const [currentPage, setCurrentPage] = useState(1);
   const [open, setOpen] = useState(false);
   const [currentProductId, setCurrentProductId] = useState(1);
-  const postsPerPage = 10;
+  const postsPerPage = 8;
 
   const data = useSelector((state) => state.allData.data.products);
   const loading = useSelector((state) => state.allData.loading);
@@ -50,14 +50,29 @@ function AllCategory() {
           (
             (data.slice(indexOfFirstPost, indexOfLastPost).map((data) => (
               <div className="pro" key={data.id} >
-                <div className="des">
-                  <img src={data.image} alt="noImage" />
-                  <p className="overme">{data.title} </p>
-                  <h6>original price {data.price} </h6>
-                  <p> discount {data.discount} %</p>
-                  <button type="button" onClick={() => handleOpen(data.id)}>Click Me to Open Modal </button>
+                <div class="des" >
+                  <img src={data.image} alt="noImage" onClick={() => handleOpen(data.id)} />
+                  <h5 className="overme">{data.title} </h5>
+                  <div>
+                    {
+                      (data.discount) ? (
+                        <div style={{ display: "flex" }}>
+                          <h5><s>{data.price}</s> </h5>
+                          <h4>${Math.trunc(data.price - ((data.price * data.discount) / 100))}</h4>
+                          <div style={{ display: "flex", paddingTop: "6px" }}>
+                            <p class="discount">{data.discount}%</p>
+                            <p>off</p>
+                          </div>
+                        </div>
+
+                      ) :
+                      (
+                        <h4>${data.price}</h4>
+                      )
+                    }
+                  </div>
                 </div>
-                <button type="button" onClick={() => { dispatch(addToCart(data)) }}><i className="fal bi bi-cart cart" ></i></button>
+                <i onClick={() => { dispatch(addToCart(data)) }} className="fal bi bi-cart cart" ></i>
               </div>
             )))
           ) :
