@@ -241,3 +241,64 @@ ul {
   font-size: 11px;  
 
 }
+
+
+.pagination1 {
+  text-align: center;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pages {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;  
+}
+
+.page-number {
+  cursor: pointer;
+  background-color: white;
+  color: #999;
+  border-radius: 50%;
+  height: 30px;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.active {  
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  background-color: #0057b3;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  
+  padding: 8px 16px;
+  background-color: #ffffff00;
+  color: #0057b3;
+  border: none;
+  cursor: pointer;
+  margin: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.active:hover {
+  color: #0056b3;
+  background-color: #fff;
+  border: 1px solid #0056b3;
+  border-radius: 50%;
+  transition: .4s ease;
+}
