@@ -35,12 +35,13 @@ function IndividualCategoryDetailPage(props) {
   if (error) return <p>Error: {error}</p>;
   if (!data || data.length === 0) return <h1>No data available</h1>;
 
+  const filteredData = data.filter(data => data.category === props.category);
   return (
     <div className='container'>
       <div className='pro-container'>
       {(data) ?
           (
-            (data.filter(data => data.category === props.category).slice(indexOfFirstPost, indexOfLastPost).map((data) => (
+            (filteredData.slice(indexOfFirstPost, indexOfLastPost).map((data) => (
               <div className="pro" key={data.id} >
                 <div class="des" >
                   <img src={data.image} alt="noImage" onClick={() => handleOpen(data.id)} />
@@ -73,7 +74,7 @@ function IndividualCategoryDetailPage(props) {
       </div>
       <SingleProductDetailPage isOpen={open} onClose={handleClose} productId={currentProductId} ></SingleProductDetailPage>
       <Pagination
-        length={data.length}
+        length={filteredData.length}
         postsPerPage={postsPerPage}
         currentPage={currentPage}
         handlePagination={handlePagination}

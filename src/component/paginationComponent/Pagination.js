@@ -6,7 +6,7 @@ const Pagination = ({ length, postsPerPage, currentPage, handlePagination }) => 
     let paginationNumber = []
 
     const [pageNumberLimit, setpageNumberLimit] = useState(5);
-    const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(3);
+    const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
     const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
     for (let i = 1; i <= Math.ceil(length / postsPerPage); i++) {
@@ -27,7 +27,7 @@ const Pagination = ({ length, postsPerPage, currentPage, handlePagination }) => 
     });
 
     const handleNextbtn = () => {
-         handlePagination(currentPage+1);
+        handlePagination(currentPage + 1);
 
         if (currentPage + 1 > maxPageNumberLimit) {
             setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
@@ -36,7 +36,7 @@ const Pagination = ({ length, postsPerPage, currentPage, handlePagination }) => 
     };
 
     const handlePrevbtn = () => {
-        handlePagination(currentPage-1);
+        handlePagination(currentPage - 1);
 
         if ((currentPage - 1) % pageNumberLimit === 0) {
             setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
@@ -60,14 +60,11 @@ const Pagination = ({ length, postsPerPage, currentPage, handlePagination }) => 
                 </div>
                 <button
                     onClick={handleNextbtn}
-                    disabled={currentPage === paginationNumber[length - 1] ? true : false}
+                    disabled={currentPage === paginationNumber.length ? true : false}
                 >
                     Next
                 </button>
             </div>
-            {/* <div>
-                <button className="arrow" id="nextPage"><span className="nav-text">NEXT</span> →</button>
-            </div> */}
         </div>
     )
 }

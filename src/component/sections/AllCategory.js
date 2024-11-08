@@ -11,8 +11,7 @@ function AllCategory() {
   const [currentProductId, setCurrentProductId] = useState(1);
   const postsPerPage = 8;
 
-  const data = useSelector((state) => state.allData.data.products);
-  const loading = useSelector((state) => state.allData.loading);
+  const data = useSelector((state) => state.allData.data.products);  
   const error = useSelector((state) => state.allData.error);
   const cart = useSelector((state) => state.cart);
 
@@ -39,7 +38,7 @@ function AllCategory() {
     setCurrentPage(pageNumber);
   };
 
-  if (loading) return <p>Loading...</p>;
+  
   if (error) return <p>Error: {error}</p>;
   if (!data || data.length === 0) return <h1>No data available</h1>;
 
