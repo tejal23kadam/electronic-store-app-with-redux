@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { IoClose, IoMenu } from "react-icons/io5";
 
 function NavBar() {
 
     //state to track the active link and scroll state
     const [activeLink, setActiveLink] = useState("hero");
     const [isScrolled, setIsScrolled] = useState(false);
+
     const [navSections, setNavSections] = useState([]);
 
     //function to smoothly scroll to a section by its Id
     const cart = useSelector((state) => state.cart);
+
 
     const scrollToSection = (sectionId) => {
         const element = document.getElementById(sectionId);
@@ -43,7 +46,7 @@ function NavBar() {
         axios.get("https://fakestoreapi.in/api/products/category")
             .then(response => {
                 setNavSections(response.data.categories);
-               // console.log(response.data.categories)
+                // console.log(response.data.categories)
             })
             .catch(error => {
                 console.error(error);
@@ -53,51 +56,51 @@ function NavBar() {
 
     // code for responsive design that shows and hides left side navbar 
 
-    const [isOpen, setIsOpen] = useState(false);
-    const [showHide, setShowHide] = useState("header");
-    const toggle = () => {
-        setIsOpen(!isOpen);
-        !isOpen ? setShowHide("header") : setShowHide("leftZero");
-        showHide !== "header" ? setShowHide("header") : setShowHide("leftZero");
-    }
+    const [click, setClick] = React.useState(false);
+
+    const handleClick = () => setClick(!click);
+    const Close = () => setClick(false);
     return (
-        <div id="header" className="header dark-background d-flex flex-column">
-            <i className="headerToggle d-xl-none " onClick={toggle}>
-                <span className={isOpen ? 'bi bi-x' : 'bi bi-list'}></span>
-            </i>
-            <div className={showHide}>
-                <div className='container'>
-                    <div className="box">
-                        <input type="text" name="" />
-                        <i className="bi bi-search"></i>
-                    </div>
-                    <div className='navmenu'>
-                        <div>
-                            <nav>
-                                <ul>
-                                    {/* {navSections.map((section, i) => (
-                                        <li key={i} onClick={() => scrollToSection(section.secName)}>
-                                            <Link to="/" className={activeLink === section.secName ? "active" : ""}>{section}</Link>
-                                        </li>
-                                    ))} */}
-                                    <li><Link to="/all">all</Link></li>
-                                    <li><Link to="/tv">tv</Link></li>
-                                    <li><Link to="/audio">audio</Link></li>
-                                    <li><Link to="/laptop">laptop</Link></li>
-                                    <li><Link to="/mobile">mobile</Link></li>
-                                    <li><Link to="/gaming">gaming</Link></li>
-                                    <li><Link to="/appliances">appliances</Link></li>
-                                </ul>
-                            </nav>
+        <div className={click ? "main-container" : ""} onClick={() => Close()}>
+
+            <div className='container'>
+
+                <div className='navmenu'>
+
+                    <nav className="navbar" onClick={e => e.stopPropagation()}>
+                        <div className="nav-container">
+                            <div className="box">
+                                <input type="text" name="" />
+                                <i className="bi bi-search"></i>
+                            </div>
+                            <ul className={click ? "nav-menu active" : "nav-menu"}>
+
+                                <li className="nav-item"><Link to="/all">all</Link></li>
+                                <li className="nav-item"><Link to="/tv">tv</Link></li>
+                                <li className="nav-item"><Link to="/audio">audio</Link></li>
+                                <li className="nav-item"><Link to="/laptop">laptop</Link></li>
+                                <li className="nav-item"><Link to="/mobile">mobile</Link></li>
+                                <li className="nav-item"><Link to="/gaming">gaming</Link></li>
+                                <li className="nav-item"><Link to="/appliances">appliances</Link></li>
+
+                            </ul>
+                            <div className='cartCount'>
+                                <Link to="/cartData"><i className="bi bi-cart"></i></Link>
+                                <span class="quantity">{cart.length}</span>
+                            </div>
+                            <div className="nav-icon" onClick={handleClick}>
+                                <i className={click ? "bi-x" : "bi-justify"}></i>
+                            </div>
                         </div>
-                        <div className='cartCount'>                           
-                            <Link to="/cartData"><i className="bi bi-cart"></i></Link> 
-                            <span class="quantity">{cart.length}</span>                         
-                        </div>
-                    </div>
+                    </nav>
+
+
                 </div>
             </div>
+
+
         </div>
+
     )
 }
 export default NavBar 

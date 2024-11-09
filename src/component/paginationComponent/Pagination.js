@@ -53,7 +53,7 @@ const Pagination = ({ length, postsPerPage, currentPage, handlePagination }) => 
                     onClick={handlePrevbtn}
                     disabled={currentPage === paginationNumber[0] ? true : false}
                 >
-                    Prev
+                  <i class="bi bi-chevron-left"></i>
                 </button>
                 <div className="page-number">
                     {renderPageNumbers}
@@ -62,7 +62,7 @@ const Pagination = ({ length, postsPerPage, currentPage, handlePagination }) => 
                     onClick={handleNextbtn}
                     disabled={currentPage === paginationNumber.length ? true : false}
                 >
-                    Next
+                    <i class="bi-chevron-right"></i>
                 </button>
             </div>
         </div>
