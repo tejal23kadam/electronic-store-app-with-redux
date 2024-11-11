@@ -59,6 +59,7 @@ ul {
   border: none;
   outline: none;
   font-size: 18px;
+  background-color: transparent;
   padding-left: 10px;
 }
 
@@ -90,6 +91,7 @@ ul {
   display: flex;
   justify-content: center;
   padding-top: 20px;
+  background-color: cadetblue;
   /* margin: 0px 100px; */
   flex-wrap: wrap
 }
@@ -211,7 +213,7 @@ ul {
   color: #fff;
   position: absolute;
   top: 0px;
-  left: 23%;
+  left: 60%;
   padding: 3px 8px;
   font-size: 10px;
 }
@@ -257,7 +259,7 @@ ul {
 
 }
 
-.active {
+.active-page {
   border-radius: 50%;
   height: 40px;
   width: 40px;
@@ -281,7 +283,7 @@ button {
   justify-content: space-between;
 }
 
-.active:hover {
+.active-page:hover {
   color: #0056b3;
   background-color: #fff;
   border: 1px solid #0056b3;
@@ -451,8 +453,8 @@ h6 span{
 
 
 .navbar {
-  background-color: #1f5156;
-  height: 80px;
+ 
+ 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -464,13 +466,16 @@ h6 span{
 
 .nav-container {
   display: flex;
-  justify-content: center;
+  background-color: pink;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  width: 100%;
-  height: 80px;
+  width: 100%;  
   max-width: 1500px;
 }
-
+.menu-container{
+  display: flex;
+}
 .main-container{
   position:absolute;
   top:0;
@@ -510,9 +515,12 @@ h6 span{
 
 .nav-item {
   line-height: 40px;
-  margin-right: 1rem;
+  margin-right: 3rem;
 }
-
+.nav-item a {
+  text-decoration: none;
+  text-transform: capitalize;
+}
 .nav-item:after {
   content: "";
   display: block;
@@ -570,12 +578,12 @@ h6 span{
   .nav-icon {
     display: block;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: -26px;
+    right: -23px;
     transform: translate(-100%, 60%);
     font-size: 1.8rem;
     cursor: pointer;
-    color: #ffdd40;
+    color: #000;
   }
 }
 /*navbar css ends*/

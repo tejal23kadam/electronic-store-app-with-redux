@@ -10,7 +10,7 @@ const options = {
     items: 1,
     margin: 0,
     autoplay: true,
-    dots: false,
+    dots: true,
     autoplayTimeout: 5000,
     smartSpeed: 450,
     nav: false,
@@ -31,6 +31,7 @@ function Slider() {
                 </div>
             </OwlCarousel>
         </div>
+       
     )
 }
 

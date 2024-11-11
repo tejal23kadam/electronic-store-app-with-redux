@@ -60,39 +60,51 @@ function NavBar() {
 
     const handleClick = () => setClick(!click);
     const Close = () => setClick(false);
+    
     return (
         <div className={click ? "main-container" : ""} onClick={() => Close()}>
 
             <div className='container'>
 
-                <div className='navmenu'>
+                <div id="navlist">
 
-                    <nav className="navbar" onClick={e => e.stopPropagation()}>
-                        <div className="nav-container">
-                            <div className="box">
-                                <input type="text" name="" />
-                                <i className="bi bi-search"></i>
+                    
+                        <div className=" navbar nav-container" onClick={e => e.stopPropagation()}>
+                            <div className='menu-container'>
+                                <div>
+                                    <img src={require('../../images/logo.png')} alt="no img" />
+                                </div>
+                                <div>
+                                    <ul className={click ? "nav-menu active" : "nav-menu"}>
+
+                                        <li className="nav-item"><Link to="/all">all</Link></li>
+                                        <li className="nav-item"><Link to="/tv">tv</Link></li>
+                                        <li className="nav-item"><Link to="/audio">audio</Link></li>
+                                        <li className="nav-item"><Link to="/laptop">laptop</Link></li>
+                                        <li className="nav-item"><Link to="/mobile">mobile</Link></li>
+                                        <li className="nav-item"><Link to="/gaming">gaming</Link></li>
+                                        <li className="nav-item"><Link to="/appliances">appliances</Link></li>
+
+                                    </ul>
+                                </div>
+                                <div className='cartCount'>
+                                    <Link to="/cartData"><i className="bi bi-cart"></i></Link>
+                                    <span class="quantity">{cart.length}</span>
+                                </div>
+                                <div className="nav-icon" onClick={handleClick}>
+                                    <i className={click ? "bi-x" : "bi-justify"}></i>
+                                </div>
                             </div>
-                            <ul className={click ? "nav-menu active" : "nav-menu"}>
-
-                                <li className="nav-item"><Link to="/all">all</Link></li>
-                                <li className="nav-item"><Link to="/tv">tv</Link></li>
-                                <li className="nav-item"><Link to="/audio">audio</Link></li>
-                                <li className="nav-item"><Link to="/laptop">laptop</Link></li>
-                                <li className="nav-item"><Link to="/mobile">mobile</Link></li>
-                                <li className="nav-item"><Link to="/gaming">gaming</Link></li>
-                                <li className="nav-item"><Link to="/appliances">appliances</Link></li>
-
-                            </ul>
-                            <div className='cartCount'>
-                                <Link to="/cartData"><i className="bi bi-cart"></i></Link>
-                                <span class="quantity">{cart.length}</span>
-                            </div>
-                            <div className="nav-icon" onClick={handleClick}>
-                                <i className={click ? "bi-x" : "bi-justify"}></i>
+                            <div>
+                                <div className="box">
+                                    <input type="text" name="" />
+                                    <i className="bi bi-search"></i>
+                                </div>
                             </div>
                         </div>
-                    </nav>
+
+
+                    
 
 
                 </div>
