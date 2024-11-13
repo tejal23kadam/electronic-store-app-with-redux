@@ -11,22 +11,15 @@ import GamingCategory from './component/sections/GamingCategory';
 import AppliancesCategory from './component/sections/AppliancesCategory';
 import AllCategory from './component/sections/AllCategory';
 import ShoppingCartData from './component/sections/ShoppingCartData';
+import NavBar from './component/sections/NavBar';
 
 function App() {
   return (
     <div className="App">
-      <IndexPage />
-      <Routes>
-        <Route path='/' element={<AllCategory />} />
-        <Route path='/all' element={<AllCategory />} />
-        <Route path="/tv" element={<TvCategory />} />
-        <Route path="/audio" element={<AudioCategory />} />
-        <Route path="/laptop" element={<LaptopCategory />} />
-        <Route path="/mobile" element={<MobileCategory />} />
-        <Route path="/gaming" element={<GamingCategory />} />
-        <Route path="/appliances" element={<AppliancesCategory />} />
-        <Route path="/cartData" element={<ShoppingCartData/>} />
-      </Routes>
+      <NavBar />
+      <div className='indexPageFlex'>        
+          <IndexPage />    
+      </div>
     </div>
   );
 }

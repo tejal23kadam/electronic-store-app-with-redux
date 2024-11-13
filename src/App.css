@@ -230,7 +230,18 @@ ul {
 
 }
 
+/*index page css start*/
 
+.indexPageFlex{
+  display: flex;
+  flex-direction: column;
+}
+
+.mainHeader{
+  display:flex;
+  justify-content: center;
+}
+/*index page css ends*/
 .pagination1 {
   text-align: center;
   margin-top: 40px;
@@ -331,11 +342,13 @@ button {
 .item-info-parent {
   order: 2;
   width: 50%;
-  margin-top:50px ;
+  margin-top: 50px;
 }
-.item-info-parent div{
+
+.item-info-parent div {
   padding: 15px;
 }
+
 .item-list-vertical {
   order: 1;
   width: 10%;
@@ -420,41 +433,52 @@ button {
   margin-top: 10px;
 }
 
-.addToCartBtn{
+.addToCartBtn {
   background-color: #cce7d0;
   border-radius: 20px;
   color: white;
 }
-h6 span{
+
+h6 span {
   color: black;
   text-transform: uppercase;
   font-size: 14px;
 }
-.discountDiv{
-  display: flex;  
- 
+
+.discountDiv {
+  display: flex;
+
 }
+
 .discountDiv h4 {
-  font-size: 30px;   
-  font-weight: 500;  
+  font-size: 30px;
+  font-weight: 500;
   color: #088178;
 }
+
 .discountDiv * {
   margin-right: 8px;
 }
 
-.closeBtn{
+.closeBtn {
   font-size: 50px;
 }
+
 /*single product detil page design ends*/
+
+
+/*owl carousal css start*/
+.owlCarousalImg {
+  height: 500px;
+}
+
+/*owl carousal css ends*/
 
 
 /* Navbar.css start */
 
 
 .navbar {
- 
- 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -470,19 +494,21 @@ h6 span{
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 100%;  
-  max-width: 1500px;
+  width: 100%;
+ 
 }
-.menu-container{
+
+.menu-container {
   display: flex;
 }
-.main-container{
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
-  background-color:rgba(0,0,0,0.3);
+
+.main-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .nav-logo {
@@ -509,6 +535,7 @@ h6 span{
   height: 100%;
   border-bottom: 3px solid transparent;
 }
+
 .fa-code {
   margin-left: 1rem;
 }
@@ -517,10 +544,12 @@ h6 span{
   line-height: 40px;
   margin-right: 3rem;
 }
+
 .nav-item a {
   text-decoration: none;
   text-transform: capitalize;
 }
+
 .nav-item:after {
   content: "";
   display: block;
@@ -545,7 +574,7 @@ h6 span{
 }
 
 @media screen and (max-width: 960px) {
-  
+
   .nav-menu {
     display: flex;
     flex-direction: column;
@@ -565,10 +594,12 @@ h6 span{
     transition: all 0.5s ease;
     z-index: 1;
   }
+
   .nav-item .active {
     color: #ffdd40;
     border: none;
   }
+
   .nav-links {
     padding: 1.5rem;
     width: 100%;
@@ -586,4 +617,5 @@ h6 span{
     color: #000;
   }
 }
+
 /*navbar css ends*/

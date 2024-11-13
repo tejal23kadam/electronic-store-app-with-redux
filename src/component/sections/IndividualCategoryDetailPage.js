@@ -79,6 +79,7 @@ function IndividualCategoryDetailPage(props) {
         currentPage={currentPage}
         handlePagination={handlePagination}
       />
+      
     </div >
   )
 }

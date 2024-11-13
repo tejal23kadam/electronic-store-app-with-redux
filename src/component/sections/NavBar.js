@@ -64,11 +64,9 @@ function NavBar() {
     return (
         <div className={click ? "main-container" : ""} onClick={() => Close()}>
 
-            <div className='container'>
+            <div className='container-fluid'>
 
-                <div id="navlist">
-
-                    
+                <div id="navlist">                    
                         <div className=" navbar nav-container" onClick={e => e.stopPropagation()}>
                             <div className='menu-container'>
                                 <div>
