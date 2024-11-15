@@ -8,7 +8,7 @@ const CartSlice = createSlice({
         state.push(action.payload);       
       },    
       updateToCart: (state, action) => {
-        const index = state.findIndex((todo) => todo.id === action.payload.id);
+        const index = state.findIndex((cart) => cart.id === action.payload.id);
         const updatedState = [...state];
         updatedState[index].text = action.payload.text;
       },

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Pagination from '../paginationComponent/Pagination';
 import SingleProductDetailPage from '../singleProductDetailComponent/SingleProductDetailPage';
 import { addToCart } from '../sliceComponent/CartSlice';
+import { json } from 'react-router-dom';
 
 function IndividualCategoryDetailPage(props) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -11,6 +12,7 @@ function IndividualCategoryDetailPage(props) {
   const postsPerPage = 8;
 
   const data = useSelector((state) => state.allData.data.products);
+  //let filter = useSelector((state) => state.brandFilter.filterBrand);
   const loading = useSelector((state) => state.allData.loading);
   const error = useSelector((state) => state.allData.error);
 
@@ -34,12 +36,19 @@ function IndividualCategoryDetailPage(props) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!data || data.length === 0) return <h1>No data available</h1>;
+ // console.log("filters are"+filter);
+  let filteredData = data.filter(data => data.category === props.category);
+  // if (filter.length != 0) {
+  //   let a=JSON.stringify(filter);
+  //   console.log("filters are"+a);
 
-  const filteredData = data.filter(data => data.category === props.category);
+  //   filteredData = filteredData.filter(data => data.brand === filter)
+    
+  // }
   return (
     <div className='container'>
       <div className='pro-container'>
-      {(data) ?
+        {(data) ?
           (
             (filteredData.slice(indexOfFirstPost, indexOfLastPost).map((data) => (
               <div className="pro" key={data.id} >
@@ -59,9 +68,9 @@ function IndividualCategoryDetailPage(props) {
                         </div>
 
                       ) :
-                      (
-                        <h4>${data.price}</h4>
-                      )
+                        (
+                          <h4>${data.price}</h4>
+                        )
                     }
                   </div>
                 </div>
@@ -79,7 +88,7 @@ function IndividualCategoryDetailPage(props) {
         currentPage={currentPage}
         handlePagination={handlePagination}
       />
-      
+
     </div >
   )
 }
