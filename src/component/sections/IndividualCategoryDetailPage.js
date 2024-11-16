@@ -4,6 +4,7 @@ import Pagination from '../paginationComponent/Pagination';
 import SingleProductDetailPage from '../singleProductDetailComponent/SingleProductDetailPage';
 import { addToCart } from '../sliceComponent/CartSlice';
 import { json } from 'react-router-dom';
+import AllFilterSection from './DropDownFilterForEachSections';
 
 function IndividualCategoryDetailPage(props) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -12,7 +13,8 @@ function IndividualCategoryDetailPage(props) {
   const postsPerPage = 8;
 
   const data = useSelector((state) => state.allData.data.products);
-  //let filter = useSelector((state) => state.brandFilter.filterBrand);
+  let filterB = useSelector((state) => state.brandFilter.filterBrand);
+  //
   const loading = useSelector((state) => state.allData.loading);
   const error = useSelector((state) => state.allData.error);
 
@@ -36,60 +38,64 @@ function IndividualCategoryDetailPage(props) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!data || data.length === 0) return <h1>No data available</h1>;
- // console.log("filters are"+filter);
+
   let filteredData = data.filter(data => data.category === props.category);
-  // if (filter.length != 0) {
-  //   let a=JSON.stringify(filter);
-  //   console.log("filters are"+a);
 
-  //   filteredData = filteredData.filter(data => data.brand === filter)
-    
-  // }
-  return (
-    <div className='container'>
-      <div className='pro-container'>
-        {(data) ?
-          (
-            (filteredData.slice(indexOfFirstPost, indexOfLastPost).map((data) => (
-              <div className="pro" key={data.id} >
-                <div class="des" >
-                  <img src={data.image} alt="noImage" onClick={() => handleOpen(data.id)} />
-                  <h5 className="overme">{data.title} </h5>
-                  <div>
-                    {
-                      (data.discount) ? (
-                        <div style={{ display: "flex" }}>
-                          <h5><s>{data.price}</s> </h5>
-                          <h4>${Math.trunc(data.price - ((data.price * data.discount) / 100))}</h4>
-                          <div style={{ display: "flex", paddingTop: "6px" }}>
-                            <p class="discount">{data.discount}%</p>
-                            <p>off</p>
+  if (filterB) {
+    filteredData = filteredData.filter(data => data.brand === filterB)
+  }
+   return (
+    <>
+      
+     
+      <div className='container'>
+        <div className='pro-container'>
+          {(data) ?
+            (
+              (filteredData.slice(indexOfFirstPost, indexOfLastPost).map((data) => (
+                <div className="pro" key={data.id} >
+                  <div class="des" >
+                    <img src={data.image} alt="noImage" onClick={() => handleOpen(data.id)} />
+                    <h5 className="overme">{data.title} </h5>
+                    <div>
+                      {
+                        (data.discount) ? (
+                          <div style={{ display: "flex" }}>
+                            <h5><s>{data.price}</s> </h5>
+                            <h4>${Math.trunc(data.price - ((data.price * data.discount) / 100))}</h4>
+                            <div style={{ display: "flex", paddingTop: "6px" }}>
+                              <p class="discount">{data.discount}%</p>
+                              <p>off</p>
+                            </div>
                           </div>
-                        </div>
 
-                      ) :
-                        (
-                          <h4>${data.price}</h4>
-                        )
-                    }
+                        ) :
+                          (
+                            <h4>${data.price}</h4>
+                          )
+                      }
+                    </div>
                   </div>
+                  <i onClick={() => { dispatch(addToCart(data)) }} className="fal bi bi-cart cart" ></i>
                 </div>
-                <i onClick={() => { dispatch(addToCart(data)) }} className="fal bi bi-cart cart" ></i>
-              </div>
-            )))
-          ) :
-          (<h1>data is missing</h1>)
-        }
-      </div>
-      <SingleProductDetailPage isOpen={open} onClose={handleClose} productId={currentProductId} ></SingleProductDetailPage>
-      <Pagination
-        length={filteredData.length}
-        postsPerPage={postsPerPage}
-        currentPage={currentPage}
-        handlePagination={handlePagination}
-      />
+              )))
+            ) :
+            (<h1>data is missing</h1>)
+          }
+        </div>
+        <SingleProductDetailPage isOpen={open} onClose={handleClose} productId={currentProductId} ></SingleProductDetailPage>
+        <Pagination
+          length={filteredData.length}
+          postsPerPage={postsPerPage}
+          currentPage={currentPage}
+          handlePagination={handlePagination}
+        />
 
-    </div >
+         
+
+
+      </div >
+    </>
   )
 }
 export default IndividualCategoryDetailPage

@@ -1,10 +1,16 @@
 import React from 'react';
 import IndividualCategoryDetailPage from './IndividualCategoryDetailPage';
+import AllFilterSection from './DropDownFilterForEachSections';
+import { useDispatch } from 'react-redux';
+import { deleteFromFilter } from '../sliceComponent/BrandFilterSlice';
 
 function AudioCategory() {
-  return(
+  const dispatch = useDispatch();
+  dispatch(deleteFromFilter());
+  return (
     <div>
-      <IndividualCategoryDetailPage category="audio"/>
+      <AllFilterSection category="audio" />
+      <IndividualCategoryDetailPage category="audio" />
     </div>
   );
 }

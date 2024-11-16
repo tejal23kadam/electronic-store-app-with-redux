@@ -6,7 +6,7 @@ import BrandFilterReducer from './component/sliceComponent/BrandFilterSlice';
 const rootReducer = combineReducers({
 	allData: AllDataReducer	,
 	cart:CartReducer,
-	BrandFilter:BrandFilterReducer
+	brandFilter:BrandFilterReducer
 })
 
 export default rootReducer;
