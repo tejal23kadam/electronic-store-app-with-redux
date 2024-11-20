@@ -56,7 +56,7 @@ function NavBar() {
 
     // code for responsive design that shows and hides left side navbar 
 
-    const [click, setClick] = React.useState(false);
+    const [click, setClick] = useState(false);
 
     const handleClick = () => setClick(!click);
     const Close = () => setClick(false);
@@ -95,7 +95,7 @@ function NavBar() {
                             </div>
                             <div>
                                 <div className="box">
-                                    <input type="text" name="" />
+                                    <input type="text" name="" placeholder='Enter Product Name' />
                                     <i className="bi bi-search"></i>
                                 </div>
                             </div>

@@ -19,9 +19,8 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <div className='indexPageFlex'>
-        {/* <AllFilterSection /> */}
-        <Slider />
+      <div className='indexPageFlex'>      
+        {/* <Slider /> */}
         <Routes>
           <Route path='/' element={<AllCategory />} />
           <Route path='/all' element={<AllCategory />} />

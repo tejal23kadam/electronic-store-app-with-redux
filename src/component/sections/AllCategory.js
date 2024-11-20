@@ -11,7 +11,7 @@ function AllCategory() {
   const [currentProductId, setCurrentProductId] = useState(1);
   const postsPerPage = 8;
 
-  const data = useSelector((state) => state.allData.data.products);  
+  const data = useSelector((state) => state.allData.data.products);
   const error = useSelector((state) => state.allData.error);
   const cart = useSelector((state) => state.cart);
 
@@ -38,16 +38,18 @@ function AllCategory() {
     setCurrentPage(pageNumber);
   };
 
-  
+
   if (error) return <p>Error: {error}</p>;
-  if (!data || data.length === 0) return <h1>No data available</h1>;
+  if (!data || data.length === 0) return <h1>Loading.....</h1>;
 
   return (
     <div className='container'>
       <div className='pro-container'>
         {(data) ?
           (
-            (data.slice(indexOfFirstPost, indexOfLastPost).map((data) => (
+            (data.slice(indexOfFirstPost, indexOfLastPost)
+            //.filter(data => {return data.title.toLowerCase().includes("Logitech");})
+            .map((data) => (
               <div className="pro" key={data.id} >
                 <div class="des" >
                   <img src={data.image} alt="noImage" onClick={() => handleOpen(data.id)} />
@@ -65,9 +67,9 @@ function AllCategory() {
                         </div>
 
                       ) :
-                      (
-                        <h4>${data.price}</h4>
-                      )
+                        (
+                          <h4>${data.price}</h4>
+                        )
                     }
                   </div>
                 </div>

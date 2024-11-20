@@ -13,8 +13,8 @@ function IndividualCategoryDetailPage(props) {
   const postsPerPage = 8;
 
   const data = useSelector((state) => state.allData.data.products);
-  let filterB = useSelector((state) => state.brandFilter.filterBrand);
-  //
+  //let filterB = useSelector((state) => state.brandFilter.filterBrand);
+  let filterB= props.filter;
   const loading = useSelector((state) => state.allData.loading);
   const error = useSelector((state) => state.allData.error);
 
@@ -40,14 +40,12 @@ function IndividualCategoryDetailPage(props) {
   if (!data || data.length === 0) return <h1>No data available</h1>;
 
   let filteredData = data.filter(data => data.category === props.category);
-
+  console.log("filterb " + filterB);
   if (filterB) {
-    filteredData = filteredData.filter(data => data.brand === filterB)
-  }
+     filteredData = filteredData.filter((data) => { return data.brand.toLowerCase().includes(filterB);})
+  } 
    return (
     <>
-      
-     
       <div className='container'>
         <div className='pro-container'>
           {(data) ?
