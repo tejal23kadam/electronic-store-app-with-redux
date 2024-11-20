@@ -20,7 +20,7 @@ function App() {
     <div className="App">
       <NavBar />
       <div className='indexPageFlex'>      
-        {/* <Slider /> */}
+        <Slider />
         <Routes>
           <Route path='/' element={<AllCategory />} />
           <Route path='/all' element={<AllCategory />} />

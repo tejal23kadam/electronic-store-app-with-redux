@@ -7,45 +7,65 @@ const AllfilterSection = (props) => {
     const data = useSelector((state) => state.allData.data.products);
     const [isOpen, setOpen] = useState(false);
 
-    const [selectedItem, setSelectedItem] = useState(null);
+    const [brandSelectedItem, setBrandSelectedItem] = useState(null);
+    const [discountSelectedItem, setDiscountSelectedItem] = useState(null);
     const dispatch = useDispatch();
-    let distinctValues;   
+    let brandDistinctValues, discountDistinctValues;
 
     const toggleDropdown = () => setOpen(!isOpen);
 
-    const handleItemClick = (brand) => {
-        selectedItem == brand ? setSelectedItem(null) : setSelectedItem(brand);
+    const handleBrandItemClick = (brand) => {
+        setBrandSelectedItem(brand);
         toggleDropdown();
     }
+
+    const handleDiscountItemClick = (discount) => {
+        setDiscountSelectedItem(discount);
+        toggleDropdown();
+    }
+
+
     let filteredData = data.filter(data => data.category === props.category);
-   
+
     //to get unique brand data from api 
     if (filteredData) {
         const propertyValues = filteredData.map(obj => obj['brand']);
         var newArray = propertyValues.map(function (x) { return x.toLowerCase() })
         const uniqueValuesSet = new Set(newArray);
-        distinctValues = Array.from(uniqueValuesSet);
+        brandDistinctValues = Array.from(uniqueValuesSet);
+    }
+    //to get unique Discount from api 
+    if (filteredData) {
+        const propertyValues = filteredData.map(obj => obj['discount']);
+        const uniqueValuesSet = new Set(propertyValues);
+        discountDistinctValues = Array.from(uniqueValuesSet);
+        console.log("discunt uniqueue values are " + discountDistinctValues);
+    }
+
+    function noData() {
+
     }
 
     return (
         <>
             <div >
+                <button onClick={() => {setBrandSelectedItem(null); setOpen(false);}}>clear</button>
                 <ul>
                     <li>
                         <div className='dropdown'>
                             <div className='dropdown-header' onClick={toggleDropdown}>
-                                {selectedItem ? filteredData.find(item => item.id == selectedItem) : "Select Brands"}
-                                {selectedItem}
+                                {brandSelectedItem ? filteredData.find(item => item.id == brandSelectedItem) : "Select Brands"}
+                                {brandSelectedItem}
                                 <i className={`bi bi-chevron-right icon`}></i>
                             </div>
                             <div className={`dropdown-body ${isOpen && 'open'}`}>
                                 {
                                     (data) ?
                                         (
-                                            distinctValues.map((elm) => {
+                                            brandDistinctValues.map((elm) => {
                                                 return (
-                                                    <div className="dropdown-item" onClick={e => { handleItemClick(elm); dispatch(addToFilter(elm)) }} id={elm.id}>
-                                                        <span className={`dropdown-item-dot ${elm == selectedItem && 'selected'}`}>• </span>
+                                                    <div className="dropdown-item" onClick={e => { handleBrandItemClick(elm); dispatch(addToFilter(elm)) }} id={elm.id}>
+                                                        <span className={`dropdown-item-dot ${elm == brandSelectedItem && 'selected'}`}>• </span>
                                                         {elm}
                                                     </div>
                                                 );
@@ -55,18 +75,44 @@ const AllfilterSection = (props) => {
                                         (
                                             <h4>Loading...</h4>
                                         )
-
                                 }
                             </div>
                         </div>
                     </li>
                     <li>
-                        <button type="button"  >Price</button>
+                        <button onClick={() =>{setDiscountSelectedItem(null); setOpen(false);}} >clear</button>
+                        <div className='dropdown'>
+                            <div className='dropdown-header' onClick={toggleDropdown}>
+                                {discountSelectedItem ? filteredData.find(item => item.id == discountSelectedItem): "Select Discount"}
+                                {discountSelectedItem} %off
+                                <i className={`bi bi-chevron-right icon`}></i>
+                            </div>
+                            <div className={`dropdown-body ${isOpen && 'open'}`}>
+                                {
+                                    (data) ?
+                                        //(discountDistinctValues.filter(item => item !== null)
+                                        discountDistinctValues.filter(elm => elm != null).map(elm => {
+                                            return (
+                                                <div className="dropdown-item" onClick={e => { handleDiscountItemClick(elm); dispatch(addToFilter(elm)) }} id={1}>
+                                                    <span className={`dropdown-item-dot ${elm == discountSelectedItem && 'selected'}`}>• </span>
+                                                    {elm} %off
+                                                </div>
+                                                // <h1>data</h1>
+                                            );
+                                        })
+
+                                        :
+                                        (
+                                            <h4>Loading...</h4>
+                                        )
+                                }
+                            </div>
+                        </div>
                     </li>
-                </ul>                
-                <IndividualCategoryDetailPage category= {props.category} filter={selectedItem} />
+                </ul>
+                <IndividualCategoryDetailPage category={props.category} brandFilter={brandSelectedItem} discountFilter={discountSelectedItem} />
             </div>
-            
+
             <div>
 
 
