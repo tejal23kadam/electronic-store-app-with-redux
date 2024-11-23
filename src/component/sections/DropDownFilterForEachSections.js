@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCategoryFilter } from '../sliceComponent/CategoryFilterSlice';
-import { addToDropDownSelectedItemFilter } from '../sliceComponent/DropDownSelectedItemSlice';
+import { addToDropDownSelectedItemFilter,deleteFromDropDownSelectedItemFilter } from '../sliceComponent/DropDownSelectedItemSlice';
 
 import IndividualCategoryDetailPage from './IndividualCategoryDetailPage';
 
@@ -64,7 +64,7 @@ const AllfilterSection = (props) => {
             <div className='filtersSection'>
                 <ul className='filterList'>
                     <li>
-                        <button onClick={() => { setBrandSelectedItem(null); setOpen(false); }}>clear</button>
+                        <button onClick={() => { setBrandSelectedItem(null); setOpen(false); dispatch(deleteFromDropDownSelectedItemFilter()) }}>clear</button>
 
                         <div className='dropdown'>
                             <div className='dropdown-header' onClick={toggleDropdown}>
