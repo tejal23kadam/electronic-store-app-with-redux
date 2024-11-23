@@ -14,26 +14,24 @@ import FetchAllCategoryData from './component/sections/FetchAllCategoryData';
 import ShoppingCartData from './component/sections/ShoppingCartData';
 import NavBar from './component/sections/NavBar';
 import AllFilterSection from './component/sections/DropDownFilterForEachSections';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import IndividualCategoryDetailPage from './component/sections/IndividualCategoryDetailPage';
 
 function App() {
 
-  const filterCategory = useSelector((state) => state.categoryFilter.filterCategory); 
-  const dropDownSelectedItem = useSelector((state) => state.dropDownSelectedItemFilter.dropDownSelectedItem); 
+  const filterCategory = useSelector((state) => state.categoryFilter.filterCategory);
+  const dropDownSelectedItem = useSelector((state) => state.dropDownSelectedItemFilter.dropDownSelectedItem);
   return (
     <div className="App container">
       <NavBar />
 
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div className='leftDiv'>
-          <h4>Filters</h4>
           <AllFilterSection category={filterCategory} />
         </div>
         <div className='rightDiv'>
           {/* <Slider /> */}
           <Routes>
-             
             <Route path='/' element={<FetchAllCategoryData />} />
             {/* <Route path="/audio" element={<AudioCategory />} /> 
             <Route path="/appliances" element={<AppliancesCategory />} />
@@ -43,13 +41,9 @@ function App() {
             <Route path="/tv" element={<TvCategory />} />    */}
             <Route path="/cartData" element={<ShoppingCartData />} />
           </Routes>
-          
-          <IndividualCategoryDetailPage category={filterCategory} brandFilter={dropDownSelectedItem} discountFilter={null} /> 
+
+          <IndividualCategoryDetailPage category={filterCategory} brandFilter={dropDownSelectedItem} discountFilter={null} />
         </div>
-      </div>
-
-      <div className='indexPageFlex'>
-
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import IndividualCategoryDetailPage from './IndividualCategoryDetailPage';
 
 const AllfilterSection = (props) => {
     const data = useSelector((state) => state.allData.data.products);
-    
+
     const [isOpen, setOpen] = useState(false);
 
     const [brandSelectedItem, setBrandSelectedItem] = useState(null);
@@ -27,7 +27,7 @@ const AllfilterSection = (props) => {
         toggleDropdown();
     }
     let filteredData;
-    if (data) {        
+    if (data) {
         if (props.category == '' || props.category === 'all') {
             filteredData = data;
         }
@@ -60,7 +60,8 @@ const AllfilterSection = (props) => {
 
     return (
         <>
-            <div>
+            <h4>Filters</h4>
+            <div className='filtersSection'>
                 <ul className='filterList'>
                     <li>
                         <button onClick={() => { setBrandSelectedItem(null); setOpen(false); }}>clear</button>
@@ -80,7 +81,7 @@ const AllfilterSection = (props) => {
                                                     // <div className="dropdown-item" onClick={e => { handleBrandItemClick(elm); dispatch(addToCategoryFilter(elm)) }} id={elm.id}>
                                                     <div className="dropdown-item" onClick={e => { handleBrandItemClick(elm); dispatch(addToDropDownSelectedItemFilter(elm)) }} id={elm.id}>
                                                         <span className={`dropdown-item-dot ${elm == brandSelectedItem && 'selected'}`}>• </span>
-                                                        {elm}                                                    
+                                                        {elm}
                                                     </div>
                                                 );
                                             })
@@ -124,7 +125,7 @@ const AllfilterSection = (props) => {
                         </div>
                     </li>
                 </ul>
-                 {/* <IndividualCategoryDetailPage category={props.category} brandFilter={brandSelectedItem} discountFilter={discountSelectedItem} />  */}
+                {/* <IndividualCategoryDetailPage category={props.category} brandFilter={brandSelectedItem} discountFilter={discountSelectedItem} />  */}
             </div>
 
             <div>
