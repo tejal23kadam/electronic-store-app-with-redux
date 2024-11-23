@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import { IoClose, IoMenu } from "react-icons/io5";
+import { addToCategoryFilter } from '../sliceComponent/CategoryFilterSlice';
+
 
 function NavBar() {
 
@@ -11,6 +13,7 @@ function NavBar() {
     const [isScrolled, setIsScrolled] = useState(false);
 
     const [navSections, setNavSections] = useState([]);
+    const dispatch = useDispatch();
 
     //function to smoothly scroll to a section by its Id
     const cart = useSelector((state) => state.cart);
@@ -60,49 +63,47 @@ function NavBar() {
 
     const handleClick = () => setClick(!click);
     const Close = () => setClick(false);
-    
+
     return (
         <div className={click ? "main-container" : ""} onClick={() => Close()}>
 
             <div className='container-fluid'>
 
-                <div id="navlist">                    
-                        <div className=" navbar nav-container" onClick={e => e.stopPropagation()}>
-                            <div className='menu-container'>
-                                <div>
-                                    <img src={require('../../images/logo.png')} alt="no img" />
-                                </div>
-                                <div>
-                                    <ul className={click ? "nav-menu active" : "nav-menu"}>
-
-                                        <li className="nav-item"><Link to="/all">all</Link></li>
-                                        <li className="nav-item"><Link to="/tv">tv</Link></li>
-                                        <li className="nav-item"><Link to="/audio">audio</Link></li>
-                                        <li className="nav-item"><Link to="/laptop">laptop</Link></li>
-                                        <li className="nav-item"><Link to="/mobile">mobile</Link></li>
-                                        <li className="nav-item"><Link to="/gaming">gaming</Link></li>
-                                        <li className="nav-item"><Link to="/appliances">appliances</Link></li>
-
-                                    </ul>
-                                </div>
-                                <div className='cartCount'>
-                                    <Link to="/cartData"><i className="bi bi-cart"></i></Link>
-                                    <span class="quantity">{cart.length}</span>
-                                </div>
-                                <div className="nav-icon" onClick={handleClick}>
-                                    <i className={click ? "bi-x" : "bi-justify"}></i>
-                                </div>
+                <div id="navlist">
+                    <div className=" navbar nav-container" onClick={e => e.stopPropagation()}>
+                        <div className='menu-container'>
+                            <div>
+                                <img src={require('../../images/logo.png')} alt="no img" />
                             </div>
                             <div>
-                                <div className="box">
-                                    <input type="text" name="" placeholder='Enter Product Name' />
-                                    <i className="bi bi-search"></i>
-                                </div>
+                                <ul className={click ? "nav-menu active" : "nav-menu"}>
+                                    <li className="nav-item" onClick={() => { dispatch(addToCategoryFilter('all')) }}><Link to="/all">all</Link></li>
+                                    <li className="nav-item" onClick={() => { dispatch(addToCategoryFilter('audio')) }}><Link to="/audio">audio</Link></li>
+                                    <li className="nav-item" onClick={() => { dispatch(addToCategoryFilter('appliances')) }} audio><Link to="/appliances">appliances</Link></li>
+                                    <li className="nav-item" onClick={() => { dispatch(addToCategoryFilter('gaming')) }}><Link to="/gaming">gaming</Link></li>
+                                    <li className="nav-item" onClick={() => { dispatch(addToCategoryFilter('laptop')) }}><Link to="/laptop">laptop</Link></li>
+                                    <li className="nav-item" onClick={() => { dispatch(addToCategoryFilter('mobile')) }}><Link to="/mobile">mobile</Link></li>
+                                    <li className="nav-item" onClick={() => { dispatch(addToCategoryFilter('tv')) }}><Link to="/tv">tv</Link></li>
+                                </ul>
+                            </div>
+                            <div className='cartCount'>
+                                <Link to="/cartData"><i className="bi bi-cart"></i></Link>
+                                <span class="quantity">{cart.length}</span>
+                            </div>
+                            <div className="nav-icon" onClick={handleClick}>
+                                <i className={click ? "bi-x" : "bi-justify"}></i>
                             </div>
                         </div>
+                        <div>
+                            <div className="box">
+                                <input type="text" name="" placeholder='Enter Product Name' />
+                                <i className="bi bi-search"></i>
+                            </div>
+                        </div>
+                    </div>
 
 
-                    
+
 
 
                 </div>

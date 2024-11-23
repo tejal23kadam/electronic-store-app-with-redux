@@ -5,6 +5,8 @@ import SingleProductDetailPage from '../singleProductDetailComponent/SingleProdu
 import { addToCart } from '../sliceComponent/CartSlice';
 import { json } from 'react-router-dom';
 import AllFilterSection from './DropDownFilterForEachSections';
+import  { useEffect } from 'react';
+import { fetchDatasAsync } from '../sliceComponent/AllDataSlice';
 
 function IndividualCategoryDetailPage(props) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,11 +17,14 @@ function IndividualCategoryDetailPage(props) {
   const data = useSelector((state) => state.allData.data.products);
   //let filterBrands = useSelector((state) => state.brandFilter.filterBrandsrand);
   let filterBrands = props.brandFilter;
+  let filteredData;
+
   let filterDiscount = props.discountFilter
   const loading = useSelector((state) => state.allData.loading);
   const error = useSelector((state) => state.allData.error);
 
   const dispatch = useDispatch();
+  
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
@@ -35,18 +40,26 @@ function IndividualCategoryDetailPage(props) {
   const handlePagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+  debugger
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!data || data.length === 0) return <h1>No data available</h1>;
 
-  let filteredData = data.filter(data => data.category === props.category);
+  if (props.category == '' || props.category === 'all') {
+    filteredData = data;
+  }
+  else {
+    filteredData = data.filter(data => data.category == props.category);
+  }
+
   console.log("filterb " + filterBrands);
   if (filterBrands) {
-    filteredData = filteredData.filter((data) => { return data.brand.toLowerCase().includes(filterBrands); })
+    
+    filteredData = filteredData.filter((data) => data.brand.toLowerCase().includes(filterBrands));
   }
   if (filterDiscount) {
-    filteredData = filteredData.filter((data) =>data.discount == filterDiscount);
+    filteredData = filteredData.filter((data) => data.discount == filterDiscount);
   }
 
   return (

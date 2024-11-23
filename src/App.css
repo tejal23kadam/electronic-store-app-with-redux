@@ -4,6 +4,26 @@
   box-sizing: border-box;
 }
 
+.leftDiv {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.rightDiv {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+.filterList
+{
+  display: flex;
+  flex-direction: column;
+}
 .navmenu {
   display: flex;
   justify-content: space-between;
@@ -13,7 +33,8 @@ ul {
   display: flex;
   justify-content: space-between;
   list-style-type: none;
-  margin: 0;
+  margin: 20px;
+  padding-left: 0;
   padding: 0;
 }
 
@@ -63,9 +84,6 @@ ul {
   padding-left: 10px;
 }
 
-ul {
-  display: flex;
-}
 
 
 .AllCategoryDiv {
@@ -91,20 +109,20 @@ ul {
   display: flex;
   justify-content: center;
   padding-top: 20px;
-  background-color: cadetblue;
+  
   /* margin: 0px 100px; */
   flex-wrap: wrap
 }
 
 .pro {
   width: 20%;
-  min-width: 250px;
-  padding: 10px 12px;
+  min-width: 210px;
+  padding: 1px 1px;
   border: 1px solid #cce7d0;
-  border-radius: 25px;
+  border-radius: 10px;
   cursor: pointer;
   box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
-  margin: 15px 10px;
+  margin: 10px 10px;
   transition: 0.2s ease;
   position: relative;
 }
@@ -121,7 +139,7 @@ ul {
 
 .pro .des {
   text-align: start;
-  padding: 10px 0;
+  padding: 10px 10px;
 }
 
 .pro .des span {
@@ -159,7 +177,7 @@ ul {
   color: #088178;
   border: 1px solid #cce7d0;
   position: absolute;
-  bottom: 30px;
+  bottom: 22px;
   right: 10px;
   padding: 0px 10px;
 }
@@ -192,7 +210,7 @@ ul {
 }
 
 .overme {
-  width: 200px;
+  width: 180px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -296,7 +314,7 @@ button {
   background-color: #fff;
   border: 1px solid #0056b3;
   border-radius: 50%;
-  transition: .4s ease;
+  /* transition: .4s ease; */
 }
 
 /*single product detail page design start*/
@@ -619,7 +637,7 @@ h6 span {
 
 /**drpdown csss start  */
 .dropdown {
-  width: 300px;
+/* width: 300px; */
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, .1);
   background-color: white;
@@ -673,3 +691,19 @@ h6 span {
 }
 
 /*dropdown css ends*/
+
+
+  
+
+@media (min-width: 992px) {
+  .leftDiv {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+
+  .rightDiv {
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+}
+

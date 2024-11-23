@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addToFilter } from '../sliceComponent/BrandFilterSlice';
+import { addToCategoryFilter } from '../sliceComponent/CategoryFilterSlice';
+import { addToDropDownSelectedItemFilter } from '../sliceComponent/DropDownSelectedItemSlice';
+
 import IndividualCategoryDetailPage from './IndividualCategoryDetailPage';
 
 const AllfilterSection = (props) => {
     const data = useSelector((state) => state.allData.data.products);
+    
     const [isOpen, setOpen] = useState(false);
 
     const [brandSelectedItem, setBrandSelectedItem] = useState(null);
@@ -23,24 +26,33 @@ const AllfilterSection = (props) => {
         setDiscountSelectedItem(discount);
         toggleDropdown();
     }
-
-
-    let filteredData = data.filter(data => data.category === props.category);
-
-    //to get unique brand data from api 
-    if (filteredData) {
-        const propertyValues = filteredData.map(obj => obj['brand']);
-        var newArray = propertyValues.map(function (x) { return x.toLowerCase() })
-        const uniqueValuesSet = new Set(newArray);
-        brandDistinctValues = Array.from(uniqueValuesSet);
+    let filteredData;
+    if (data) {        
+        if (props.category == '' || props.category === 'all') {
+            filteredData = data;
+        }
+        else {
+            filteredData = data.filter(data => data.category == props.category);
+        }
+        console.log("filter data " + filteredData);
+        //to get unique brand data from api 
+        if (filteredData) {
+            const propertyValues = filteredData.map(obj => obj['brand']);
+            var newArray = propertyValues.map(function (x) { return x.toLowerCase() })
+            const uniqueValuesSet = new Set(newArray);
+            brandDistinctValues = Array.from(uniqueValuesSet);
+        }
+        //to get unique Discount from api 
+        if (filteredData) {
+            const propertyValues = filteredData.map(obj => obj['discount']);
+            const uniqueValuesSet = new Set(propertyValues);
+            discountDistinctValues = Array.from(uniqueValuesSet);
+            console.log("discunt uniqueue values are " + discountDistinctValues);
+        }
     }
-    //to get unique Discount from api 
-    if (filteredData) {
-        const propertyValues = filteredData.map(obj => obj['discount']);
-        const uniqueValuesSet = new Set(propertyValues);
-        discountDistinctValues = Array.from(uniqueValuesSet);
-        console.log("discunt uniqueue values are " + discountDistinctValues);
-    }
+
+
+
 
     function noData() {
 
@@ -48,10 +60,11 @@ const AllfilterSection = (props) => {
 
     return (
         <>
-            <div >
-                <button onClick={() => {setBrandSelectedItem(null); setOpen(false);}}>clear</button>
-                <ul>
+            <div>
+                <ul className='filterList'>
                     <li>
+                        <button onClick={() => { setBrandSelectedItem(null); setOpen(false); }}>clear</button>
+
                         <div className='dropdown'>
                             <div className='dropdown-header' onClick={toggleDropdown}>
                                 {brandSelectedItem ? filteredData.find(item => item.id == brandSelectedItem) : "Select Brands"}
@@ -64,9 +77,10 @@ const AllfilterSection = (props) => {
                                         (
                                             brandDistinctValues.map((elm) => {
                                                 return (
-                                                    <div className="dropdown-item" onClick={e => { handleBrandItemClick(elm); dispatch(addToFilter(elm)) }} id={elm.id}>
+                                                    // <div className="dropdown-item" onClick={e => { handleBrandItemClick(elm); dispatch(addToCategoryFilter(elm)) }} id={elm.id}>
+                                                    <div className="dropdown-item" onClick={e => { handleBrandItemClick(elm); dispatch(addToDropDownSelectedItemFilter(elm)) }} id={elm.id}>
                                                         <span className={`dropdown-item-dot ${elm == brandSelectedItem && 'selected'}`}>• </span>
-                                                        {elm}
+                                                        {elm}                                                    
                                                     </div>
                                                 );
                                             })
@@ -80,10 +94,10 @@ const AllfilterSection = (props) => {
                         </div>
                     </li>
                     <li>
-                        <button onClick={() =>{setDiscountSelectedItem(null); setOpen(false);}} >clear</button>
+                        <button onClick={() => { setDiscountSelectedItem(null); setOpen(false); }} >clear</button>
                         <div className='dropdown'>
                             <div className='dropdown-header' onClick={toggleDropdown}>
-                                {discountSelectedItem ? filteredData.find(item => item.id == discountSelectedItem): "Select Discount"}
+                                {discountSelectedItem ? filteredData.find(item => item.id == discountSelectedItem) : "Select Discount"}
                                 {discountSelectedItem} %off
                                 <i className={`bi bi-chevron-right icon`}></i>
                             </div>
@@ -93,7 +107,7 @@ const AllfilterSection = (props) => {
                                         //(discountDistinctValues.filter(item => item !== null)
                                         discountDistinctValues.filter(elm => elm != null).map(elm => {
                                             return (
-                                                <div className="dropdown-item" onClick={e => { handleDiscountItemClick(elm); dispatch(addToFilter(elm)) }} id={1}>
+                                                <div className="dropdown-item" onClick={e => { handleDiscountItemClick(elm); dispatch(addToCategoryFilter(elm)) }} id={1}>
                                                     <span className={`dropdown-item-dot ${elm == discountSelectedItem && 'selected'}`}>• </span>
                                                     {elm} %off
                                                 </div>
@@ -110,7 +124,7 @@ const AllfilterSection = (props) => {
                         </div>
                     </li>
                 </ul>
-                <IndividualCategoryDetailPage category={props.category} brandFilter={brandSelectedItem} discountFilter={discountSelectedItem} />
+                 {/* <IndividualCategoryDetailPage category={props.category} brandFilter={brandSelectedItem} discountFilter={discountSelectedItem} />  */}
             </div>
 
             <div>
