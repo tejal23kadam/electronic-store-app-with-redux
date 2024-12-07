@@ -3,10 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Pagination from '../paginationComponent/Pagination';
 import SingleProductDetailPage from '../singleProductDetailComponent/SingleProductDetailPage';
 import { addToCart } from '../sliceComponent/CartSlice';
-import { json } from 'react-router-dom';
-import AllFilterSection from './DropDownFilterForEachSections';
-import  { useEffect } from 'react';
-import { fetchDatasAsync } from '../sliceComponent/AllDataSlice';
 
 function IndividualCategoryDetailPage(props) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,7 +11,6 @@ function IndividualCategoryDetailPage(props) {
   const postsPerPage = 8;
 
   const data = useSelector((state) => state.allData.data.products);
-  //let filterBrands = useSelector((state) => state.brandFilter.filterBrandsrand);
   let filterBrands = props.brandFilter;
   let filteredData;
 
@@ -24,7 +19,7 @@ function IndividualCategoryDetailPage(props) {
   const error = useSelector((state) => state.allData.error);
 
   const dispatch = useDispatch();
-  
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
@@ -40,33 +35,35 @@ function IndividualCategoryDetailPage(props) {
   const handlePagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  debugger
+
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!data || data.length === 0) return <h1>No data available</h1>;
 
-  if (props.category == '' || props.category === 'all') {
+  if (props.category === '' || props.category === 'all') {
     filteredData = data;
   }
   else {
-    filteredData = data.filter(data => data.category == props.category);
+    filteredData = data.filter(data => data.category === props.category);
   }
-
+  debugger
   console.log("filterb " + filterBrands);
   if (filterBrands) {
-    
     filteredData = filteredData.filter((data) => data.brand.toLowerCase().includes(filterBrands));
+    console.log("filter brand data" + JSON.stringify(filteredData));
   }
+
   if (filterDiscount) {
-    filteredData = filteredData.filter((data) => data.discount == filterDiscount);
+    filteredData = filteredData.filter((data) => data.discount === filterDiscount);
+    console.log("filter discount data" + JSON.stringify(filteredData));
   }
 
   return (
     <>
       <div className='container'>
         <div className='pro-container'>
-          {(data) ?
+          {(filteredData) ?
             (
               (filteredData.slice(indexOfFirstPost, indexOfLastPost).map((data) => (
                 <div className="pro" key={data.id} >
@@ -81,10 +78,9 @@ function IndividualCategoryDetailPage(props) {
                             <h4>${Math.trunc(data.price - ((data.price * data.discount) / 100))}</h4>
                             <div style={{ display: "flex", paddingTop: "6px" }}>
                               <p class="discount">{data.discount}%</p>
-                              <p>off</p>
+                              <p>off no</p>
                             </div>
                           </div>
-
                         ) :
                           (
                             <h4>${data.price}</h4>
@@ -98,7 +94,9 @@ function IndividualCategoryDetailPage(props) {
             ) :
             (<h1>data is missing</h1>)
           }
-        </div>
+        </div>   
+        
+             
         <SingleProductDetailPage isOpen={open} onClose={handleClose} productId={currentProductId} ></SingleProductDetailPage>
         <Pagination
           length={filteredData.length}
@@ -106,12 +104,8 @@ function IndividualCategoryDetailPage(props) {
           currentPage={currentPage}
           handlePagination={handlePagination}
         />
-
-
-
-
       </div >
-    </>
+    </>   
   )
 }
 export default IndividualCategoryDetailPage

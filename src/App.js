@@ -9,7 +9,7 @@ import AudioCategory from './component/sections/AudioCategory';
 import LaptopCategory from './component/sections/LaptopCategory';
 import MobileCategory from './component/sections/MobileCategory';
 import GamingCategory from './component/sections/GamingCategory';
-import AppliancesCategory from './component/sections/AppliancesCategory';
+import AppliancesCategory from './component/sections/AppliancesCategory'; 
 import FetchAllCategoryData from './component/sections/FetchAllCategoryData';
 import ShoppingCartData from './component/sections/ShoppingCartData';
 import NavBar from './component/sections/NavBar';
@@ -20,7 +20,8 @@ import IndividualCategoryDetailPage from './component/sections/IndividualCategor
 function App() {
 
   const filterCategory = useSelector((state) => state.categoryFilter.filterCategory);
-  const dropDownSelectedItem = useSelector((state) => state.dropDownSelectedItemFilter.dropDownSelectedItem);
+  const dropDownBrandSelectedItem = useSelector((state) => state.dropDownBrandSelectedItemFilter.dropDownBrandSelectedItem);
+  const dropDownDiscountSelectedItem = useSelector((state) => state.dropDownDiscountSelectedItemFilter.dropDownDiscountSelectedItem);
   return (
     <div className="App container">
       <NavBar />
@@ -32,6 +33,7 @@ function App() {
         <div className='rightDiv'>
           {/* <Slider /> */}
           <Routes>
+            
             <Route path='/' element={<FetchAllCategoryData />} />
             {/* <Route path="/audio" element={<AudioCategory />} /> 
             <Route path="/appliances" element={<AppliancesCategory />} />
@@ -41,8 +43,7 @@ function App() {
             <Route path="/tv" element={<TvCategory />} />    */}
             <Route path="/cartData" element={<ShoppingCartData />} />
           </Routes>
-
-          <IndividualCategoryDetailPage category={filterCategory} brandFilter={dropDownSelectedItem} discountFilter={null} />
+          <IndividualCategoryDetailPage category={filterCategory} brandFilter={dropDownBrandSelectedItem} discountFilter={dropDownDiscountSelectedItem} />
         </div>
       </div>
     </div>
