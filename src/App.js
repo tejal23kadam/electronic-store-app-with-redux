@@ -32,18 +32,17 @@ function App() {
         </div>
         <div className='rightDiv'>
           {/* <Slider /> */}
-          <Routes>
-            
+          <Routes>            
             <Route path='/' element={<FetchAllCategoryData />} />
-            {/* <Route path="/audio" element={<AudioCategory />} /> 
+            <Route path="/audio" element={<AudioCategory />} /> 
             <Route path="/appliances" element={<AppliancesCategory />} />
             <Route path="/gaming" element={<GamingCategory />} />                    
             <Route path="/laptop" element={<LaptopCategory />} />
             <Route path="/mobile" element={<MobileCategory />} />
-            <Route path="/tv" element={<TvCategory />} />    */}
+            <Route path="/tv" element={<TvCategory />} />   
             <Route path="/cartData" element={<ShoppingCartData />} />
           </Routes>
-          <IndividualCategoryDetailPage category={filterCategory} brandFilter={dropDownBrandSelectedItem} discountFilter={dropDownDiscountSelectedItem} />
+          {/* <IndividualCategoryDetailPage category={filterCategory} brandFilter={dropDownBrandSelectedItem} discountFilter={dropDownDiscountSelectedItem} /> */}
         </div>
       </div>
     </div>

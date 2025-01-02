@@ -7,11 +7,14 @@ function FetchAllCategoryData() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Fetch data whenever the current page changes
+    // Fetch data whenever the component mounts
     dispatch(fetchDatasAsync());
-  }, [dispatch]); 
+  }, [dispatch]);  // Only dispatch once on mount
 
-  <IndividualCategoryDetailPage category='All' brandFilter="" discountFilter="" />
+  // Returning the component for rendering
+  return (
+    <IndividualCategoryDetailPage category='all' brandFilter="" discountFilter="" />
+  );
 }
 
 export default FetchAllCategoryData;

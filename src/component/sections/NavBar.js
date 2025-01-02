@@ -87,7 +87,7 @@ function NavBar() {
                                 </ul>
                             </div>
                             <div className='cartCount'>
-                                <Link to="/cartData"><i className="bi bi-cart"></i></Link>
+                                <Link to="cartData"><i className="bi bi-cart"></i></Link>
                                 <span class="quantity">{cart.length}</span>
                             </div>
                             <div className="nav-icon" onClick={handleClick}>

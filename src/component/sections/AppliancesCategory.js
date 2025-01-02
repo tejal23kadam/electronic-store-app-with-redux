@@ -5,6 +5,7 @@ function AppliancesCategory() {
     
   return (
     <div>      
+      <AllFilterSection category="appliance" />   
     </div>
   );
 }

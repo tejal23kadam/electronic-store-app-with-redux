@@ -36,19 +36,19 @@ function IndividualCategoryDetailPage(props) {
     setCurrentPage(pageNumber);
   };
 
-
+   debugger
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!data || data.length === 0) return <h1>No data available</h1>;
-
+  
   if (props.category === '' || props.category === 'all') {
     filteredData = data;
   }
   else {
     filteredData = data.filter(data => data.category === props.category);
   }
-  debugger
-  console.log("filterb " + filterBrands);
+  
+  
   if (filterBrands) {
     filteredData = filteredData.filter((data) => data.brand.toLowerCase().includes(filterBrands));
     console.log("filter brand data" + JSON.stringify(filteredData));
@@ -58,7 +58,7 @@ function IndividualCategoryDetailPage(props) {
     filteredData = filteredData.filter((data) => data.discount === filterDiscount);
     console.log("filter discount data" + JSON.stringify(filteredData));
   }
-
+  
   return (
     <>
       <div className='container'>
